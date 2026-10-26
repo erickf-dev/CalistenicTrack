@@ -3,7 +3,7 @@ import sqlite3
 from pathlib import Path
 
 BASE = Path(__file__).parent
-DB_PATH = BASE / "calistenia.db"
+DB_PATH = BASE.parent / "data" / "calistenia.db"
 
 # nombre, categoría, medición, por_lado
 EXERCISES = [
@@ -42,6 +42,7 @@ ROUTINE_EXERCISES = [
 
 
 def main() -> None:
+    DB_PATH.parent.mkdir(exist_ok=True)
     con = sqlite3.connect(DB_PATH)
     con.execute("PRAGMA foreign_keys = ON")
     con.executescript((BASE / "schema.sql").read_text(encoding="utf-8"))
