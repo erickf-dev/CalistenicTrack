@@ -22,3 +22,8 @@ def get_conn():
         raise
     finally:
         con.close()
+
+
+def rows(cur) -> list[dict]:
+    """Convierte el resultado de una consulta en una lista de diccionarios."""
+    return [dict(r) for r in cur.fetchall()]

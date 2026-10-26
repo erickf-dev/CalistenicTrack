@@ -1,13 +1,16 @@
-"""API del Tracker de Calistenia: registro de una sesión (paso 2)."""
+"""API del Tracker de Calistenia: registro (paso 2), historial (3) y estadísticas (4)."""
 import sqlite3
 from datetime import date
 
 from fastapi import Depends, FastAPI, HTTPException
 
 from .database import get_conn
+from .routers import history, stats
 from .schemas import NoteIn, SetCreate, SetUpdate, WorkoutCreate, WorkoutFinish
 
 app = FastAPI(title="Calistenia Tracker")
+app.include_router(history.router)
+app.include_router(stats.router)
 
 
 def rows(cur) -> list[dict]:
